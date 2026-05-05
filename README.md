@@ -54,12 +54,10 @@ Abrir en el navegador: **http://127.0.0.1:8000**
 
 ### 5. Editar / Eliminar
 - Cada listado (Posts, Autores, Categorías) tiene botones de Editar y Eliminar
-- Eliminar pide confirmación con un `confirm()` nativo del navegador
 
 ### 6. Buscar Posts
 - Ir a **🔍 Buscar** en la navegación → URL: `/buscar/`
 - Ingresar una palabra del título o contenido de algún post
-- El formulario usa método GET (aparece en la URL)
 
 ### 7. Panel de administración (opcional)
 - URL: `/admin/`
