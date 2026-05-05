@@ -1,10 +1,9 @@
 from django.db import models
 
 
-# DB --> Tabla Autor
 class Autor(models.Model):
-    nombre = models.CharField(max_length=100, null=False, blank=False)
-    apellido = models.CharField(max_length=100, null=False, blank=False)
+    nombre = models.CharField(max_length=30, null=False, blank=False)
+    apellido = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(unique=True, null=False, blank=False)
     bio = models.TextField(blank=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -18,7 +17,6 @@ class Autor(models.Model):
         ordering = ['apellido', 'nombre']
 
 
-# DB --> Tabla Categoria
 class Categoria(models.Model):
     nombre = models.CharField(max_length=80, null=False, blank=False)
     descripcion = models.TextField(blank=True)
@@ -32,9 +30,8 @@ class Categoria(models.Model):
         ordering = ['nombre']
 
 
-# DB --> Tabla Post
 class Post(models.Model):
-    titulo = models.CharField(max_length=200, null=False, blank=False)
+    titulo = models.CharField(max_length=30, null=False, blank=False)
     contenido = models.TextField(null=False, blank=False)
     resumen = models.CharField(max_length=300, blank=True)
     autor = models.ForeignKey(Autor, on_delete=models.CASCADE, related_name='posts')
