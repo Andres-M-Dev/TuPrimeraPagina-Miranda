@@ -1,15 +1,8 @@
-# DevBlog — Proyecto Django
-
-Blog desarrollado con Django usando el patrón **MVT** (Modelo - Vista - Template).
-
-
----
-
 ## Instalación y ejecución
 
 ```bash
 # 1. Clonar el repositorio
-git clone <URL_DEL_REPO>
+git clone <https://github.com/Andres-M-Dev/TuPrimeraPagina-Miranda.git >
 cd blogproject
 
 # 2. Crear entorno virtual (recomendado)
@@ -72,85 +65,3 @@ Abrir en el navegador: **http://127.0.0.1:8000**
 - URL: `/admin/`
 - Requiere haber creado un superusuario (`python manage.py createsuperuser`)
 
----
-
-## Estructura del proyecto
-
-```
-blogproject/
-│
-├── blogproject/              # Configuración del proyecto Django
-│   ├── settings.py           # Configuración general
-│   ├── urls.py               # URLs raíz → include("blog.urls")
-│   └── wsgi.py
-│
-├── blog/                     # Aplicación principal
-│   ├── migrations/           # Migraciones generadas automáticamente
-│   │   └── 0001_initial.py
-│   │
-│   ├── templates/
-│   │   └── blog/
-│   │       ├── base.html               ← Plantilla BASE (herencia)
-│   │       ├── inicio.html             ← extends base.html
-│   │       ├── lista_posts.html        ← extends base.html
-│   │       ├── detalle_post.html       ← extends base.html
-│   │       ├── formulario_post.html    ← extends base.html
-│   │       ├── lista_autores.html      ← extends base.html
-│   │       ├── formulario_autor.html   ← extends base.html
-│   │       ├── lista_categorias.html   ← extends base.html
-│   │       ├── formulario_categoria.html ← extends base.html
-│   │       └── buscar.html             ← extends base.html
-│   │
-│   ├── models.py       # Modelos: Autor, Categoria, Post
-│   ├── views.py        # Vistas (funciones)
-│   ├── forms.py        # ModelForms para los 3 modelos + BusquedaForm
-│   ├── urls.py         # URLs de la app blog
-│   └── admin.py        # Registro en el panel admin
-│
-├── db.sqlite3          # Base de datos SQLite
-└── manage.py
-```
-
----
-
-## Requisitos cumplidos
-
-| Requisito | Implementación | Estado |
-|-----------|----------------|--------|
-| Herencia de HTML | `base.html` con `{% block contenido %}`, todas las templates usan `{% extends "blog/base.html" %}` | ✅ |
-| 3 clases en models | `Autor`, `Categoria`, `Post` en `blog/models.py` | ✅ |
-| Formulario para insertar datos (por cada modelo) | `formulario_autor.html`, `formulario_categoria.html`, `formulario_post.html` — cada uno con su `ModelForm` | ✅ |
-| Formulario de búsqueda en la BD | `buscar.html` con `BusquedaForm` (GET), busca en `titulo` y `contenido` de Post | ✅ |
-| Patrón MVT | Models → `models.py`, Views → `views.py`, Templates → `templates/blog/` | ✅ |
-| README con orden de prueba | Este archivo | ✅ |
-
----
-
-## Modelos (`blog/models.py`)
-
-### Autor
-| Campo | Tipo |
-|-------|------|
-| nombre | CharField(100) |
-| apellido | CharField(100) |
-| email | EmailField (único) |
-| bio | TextField (opcional) |
-| fecha_creacion | DateTimeField (auto) |
-
-### Categoria
-| Campo | Tipo |
-|-------|------|
-| nombre | CharField(80) |
-| descripcion | TextField (opcional) |
-
-### Post
-| Campo | Tipo |
-|-------|------|
-| titulo | CharField(200) |
-| contenido | TextField |
-| resumen | CharField(300, opcional) |
-| autor | ForeignKey → Autor |
-| categoria | ForeignKey → Categoria |
-| fecha_publicacion | DateTimeField (auto) |
-| fecha_actualizacion | DateTimeField (auto) |
-| publicado | BooleanField |
