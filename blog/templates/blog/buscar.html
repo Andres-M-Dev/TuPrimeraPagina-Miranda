@@ -1,0 +1,44 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Buscar — DevBlog{% endblock %}
+
+{% block contenido %}
+
+<h1>Buscar Posts</h1>
+
+<form method="GET" action="{% url 'buscar_posts' %}">
+    {{ form.as_p }}
+    <p><input type="submit" value="Buscar" class="btn btn-verde"></p>
+</form>
+<hr>
+
+{% if query %}
+    <p>Resultados para: <strong>"{{ query }}"</strong> — {{ resultados|length }} encontrado{{ resultados|length|pluralize }}</p>
+
+    {% if resultados %}
+    <table>
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Categoría</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in resultados %}
+            <tr>
+                <td><a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a></td>
+                <td>{{ post.autor.nombre }} {{ post.autor.apellido }}</td>
+                <td>{% if post.categoria %}{{ post.categoria.nombre }}{% else %}—{% endif %}</td>
+                <td>{{ post.fecha_publicacion|date:"d/m/Y" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No se encontraron posts que coincidan con "{{ query }}".</p>
+    {% endif %}
+{% endif %}
+
+{% endblock %}

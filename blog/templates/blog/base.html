@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}DevBlog{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0ede8;
+            min-height: 100vh;
+        }
+
+        /* NAV */
+        nav {
+            background-color: #0d0d0d;
+            border-bottom: 3px solid #c84b31;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            height: 56px;
+        }
+        .nav-logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            margin-right: 30px;
+            letter-spacing: -0.5px;
+        }
+        .nav-logo span {
+            color: #c84b31;
+        }
+        nav a {
+            color: #bbb;
+            text-decoration: none;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+        nav a:hover {
+            color: white;
+        }
+        .nav-nuevo {
+            background-color: #c84b31;
+            color: white !important;
+            padding: 5px 12px;
+            border-radius: 3px;
+        }
+        .nav-nuevo:hover {
+            background-color: #a83b23 !important;
+        }
+
+        /* CONTENIDO */
+        .main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        /* TABLA */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        table th, table td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #0d0d0d;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* FORMULARIOS */
+        form p {
+            margin-bottom: 10px;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        /* BOTONES */
+        input[type="submit"],
+        .btn {
+            padding: 7px 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 13px;
+            display: inline-block;
+        }
+        .btn-verde  { background-color: #5a9; color: white; }
+        .btn-azul   { background-color: #36a; color: white; }
+        .btn-rojo   { background-color: #c44; color: white; }
+        .btn-gris   { background-color: #888; color: white; }
+
+        /* MENSAJE */
+        .mensaje-ok {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        /* CAJA FORMULARIO */
+        .contenedor {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="{% url 'inicio' %}" class="nav-logo">Dev<span>Blog</span></a>
+        <a href="{% url 'lista_posts' %}">Posts</a>
+        <a href="{% url 'lista_autores' %}">Autores</a>
+        <a href="{% url 'lista_categorias' %}">Categorías</a>
+        <a href="{% url 'buscar_posts' %}">Buscar</a>
+        <a href="{% url 'crear_post' %}" class="nav-nuevo">+ Nuevo Post</a>
+    </nav>
+
+    <div class="main">
+
+        {% if messages %}
+            {% for message in messages %}
+            <div class="mensaje-ok">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% block contenido %}{% endblock %}
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}{% if editando %}Editar Post{% else %}Nuevo Post{% endif %} — DevBlog{% endblock %}
+
+{% block contenido %}
+
+<h1>{% if editando %}Editar Post{% else %}Nuevo Post{% endif %}</h1>
+
+<div class="contenedor">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p>
+            <input type="submit" value="Guardar" class="btn btn-verde">
+            <a href="{% url 'lista_posts' %}" class="btn btn-gris">Cancelar</a>
+        </p>
+    </form>
+</div>
+
+{% endblock %}

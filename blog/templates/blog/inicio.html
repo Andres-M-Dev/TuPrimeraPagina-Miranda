@@ -1,0 +1,49 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Inicio — DevBlog{% endblock %}
+
+{% block contenido %}
+
+<h1>Bienvenido a DevBlog</h1>
+<p>Un blog hecho con Django para el ramo de Python.</p>
+<hr>
+
+<p>
+    <strong>Posts publicados:</strong> {{ total_posts }} |
+    <strong>Autores:</strong> {{ total_autores }} |
+    <strong>Categorías:</strong> {{ total_categorias }}
+</p>
+<hr>
+
+<h2>Posts recientes</h2>
+
+{% if posts %}
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Categoría</th>
+            <th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td><a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a></td>
+            <td>{{ post.autor.nombre }} {{ post.autor.apellido }}</td>
+            <td>{% if post.categoria %}{{ post.categoria.nombre }}{% else %}—{% endif %}</td>
+            <td>{{ post.fecha_publicacion|date:"d/m/Y" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay posts todavía.
+    Primero <a href="{% url 'crear_autor' %}">crea un autor</a>,
+    luego una <a href="{% url 'crear_categoria' %}">categoría</a>,
+    y finalmente <a href="{% url 'crear_post' %}">escribe un post</a>.
+</p>
+{% endif %}
+
+{% endblock %}

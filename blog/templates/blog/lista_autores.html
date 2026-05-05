@@ -1,0 +1,40 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Autores — DevBlog{% endblock %}
+
+{% block contenido %}
+
+<h1>Autores</h1>
+<p><a href="{% url 'crear_autor' %}" class="btn btn-verde">+ Nuevo Autor</a></p>
+
+{% if autores %}
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Posts</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for autor in autores %}
+        <tr>
+            <td>{{ autor.nombre }}</td>
+            <td>{{ autor.apellido }}</td>
+            <td>{{ autor.email }}</td>
+            <td>{{ autor.posts.count }}</td>
+            <td>
+                <a href="{% url 'editar_autor' autor.id %}" class="btn btn-azul">Editar</a>
+                <a href="{% url 'eliminar_autor' autor.id %}" class="btn btn-rojo" onclick="return confirm('¿Eliminar este autor?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay autores registrados. <a href="{% url 'crear_autor' %}">Registrar el primero</a>.</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "blog/base.html" %}
+
+{% block titulo %}Posts — DevBlog{% endblock %}
+
+{% block contenido %}
+
+<h1>Posts</h1>
+<p><a href="{% url 'crear_post' %}" class="btn btn-verde">+ Nuevo Post</a></p>
+
+{% if posts %}
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Autor</th>
+            <th>Categoría</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td><a href="{% url 'detalle_post' post.id %}">{{ post.titulo }}</a></td>
+            <td>{{ post.autor.nombre }} {{ post.autor.apellido }}</td>
+            <td>{% if post.categoria %}{{ post.categoria.nombre }}{% else %}—{% endif %}</td>
+            <td>{{ post.fecha_publicacion|date:"d/m/Y" }}</td>
+            <td>
+                <a href="{% url 'editar_post' post.id %}" class="btn btn-azul">Editar</a>
+                <a href="{% url 'eliminar_post' post.id %}" class="btn btn-rojo" onclick="return confirm('¿Eliminar este post?')">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay posts publicados. <a href="{% url 'crear_post' %}">Crear el primero</a>.</p>
+{% endif %}
+
+{% endblock %}
